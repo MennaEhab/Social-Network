@@ -142,26 +142,39 @@ void user::display(){
 		<<" if you want to show friends posts press 1"<<endl
 		<<" if want to write posts press 2" <<endl
 	<<" if want to sign out press 3" <<endl
-	<<"if you want to add friend press 4"<<endl;
+	<<"if you want to add friend press 4"<<endl
+	<<"if you want to show your friends list please press 5"<<endl;
 
 	cin>>no ;
 	switch (no)
 	{
 	case 0:
 		this->show_my_posts();
+		break;
 	case 1 :
 		this->show_posts();
+		break;
 	case 2 :
 		this->write_post();
+		break;
 	case 3 :
 		this->sign_out();
+		break;
+	case 5 :
+		this->show_my_friends_list();
+		break;
 	case 4 :
 		string email ;
 		cout<<"please the enter the friend email"<<endl;
 		cin>>email ;
 		this->add_friend(email) ;
+		break;
+	
+							
 	}
 }
+
+
 void user::show_my_posts(){
     
      for(int i=0;i<this->post.size();i++)cout<<"index :"<<i<<endl<<this->post[i]<<endl;
@@ -182,9 +195,12 @@ void user::show_posts()
 	cout <<"ana gwa show posts " << endl;
 	////////////
 	vector <string> all_posts ;
+
+
 	for (auto i=friend_list[this->ID].begin(); i != friend_list[this->ID].end(); ++i)
 	{
 	int ID_friend=*i ;
+	cout<<users[ID_friend].post[0];
 
 	all_posts.reserve(all_posts.size()+users[ID_friend].post.size());
 	all_posts.insert(all_posts.end(),users[ID_friend].post.begin() ,users[ID_friend].post.end());
@@ -196,9 +212,8 @@ void user::show_posts()
 		cout<<"index no."<<i <<":" <<endl <<all_posts[i] <<endl  ;
 	
 	}
-
-
-	 cout<<" press 0 if you want to like or press 1 if you want to go back "<<endl;
+	
+	cout<<" press 0 if you want to like or press 1 if you want to go back "<<endl;
 	int b;
 	 cin>> b;
 	 switch(b){
@@ -226,6 +241,21 @@ void user:: write_post(){
 
 void user::sign_out(){
 	home_page();
+}
+
+
+void user::show_my_friends_list()
+{
+	for(auto i=friend_list[this->ID].begin(); i != friend_list[this->ID].end(); ++i)
+	{
+		 int friend_ID =*i ;
+		 cout<< users[friend_ID].name<<endl ;
+	
+	
+	}
+	this->display();
+
+
 }
 
 int main ()

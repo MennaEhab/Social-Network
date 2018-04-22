@@ -29,6 +29,7 @@ public :
 	friend void creat_account();                                          
 	void write_post();
 	void sign_out();
+	void show_my_friends_list();
 };
 
 struct post 
