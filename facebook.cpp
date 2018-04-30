@@ -31,18 +31,14 @@ void user::add_friend(string email)
 	for(int i=0;i<users.size();i++)
 	{
 
-		if (users[i].email == email ){
+		if (users[i].email == email )
+		{
 			
 			friend_list[i].push_back(this->ID);  
-			friend_list[this->ID].push_back(i);  
-
-			
+			friend_list[this->ID].push_back(i);  	
 		}
-
-	
 	}
 
-	cout <<"add friend done"<<endl;
 	this->display();
 }
 
@@ -65,7 +61,7 @@ void creat_account()
 	user m (global_ID , name, password , email);
 	global_ID++;
 	users.push_back(m);
-	/////// call the function of display
+	
 	m.display();
 
 }
@@ -123,7 +119,10 @@ void sign_in ()
 void home_page()
 {
 	int x ;
-cout<< "welcome to hamada  if you want to creat new account please enter 1 "<<endl << "or to sign in press 0" <<endl;
+cout<< "welcome to Our social media network"<<endl 
+	<< " if you want to creat new account please enter  ( 1) "<<endl 
+	<< "if you want to sign in please enter ( 0) " <<endl;
+
 cin>>x ;
 if (x == 1)
 {
@@ -139,11 +138,11 @@ sign_in ();
 void user::display(){
 	int no ;
 	cout <<"if you what to show  your posts press 0"<<endl
-		<<" if you want to show friends posts press 1"<<endl
-		<<" if want to write posts press 2" <<endl
-	<<" if want to sign out press 3" <<endl
-	<<"if you want to add friend press 4"<<endl
-	<<"if you want to show your friends list please press 5"<<endl;
+		<<"if you want to show friends posts press 1"<<endl
+		<<"if want to write posts press 2" <<endl
+		<<"if want to sign out press 3" <<endl
+		<<"if you want to add friend press 4"<<endl
+		<<"if you want to show your friends list please press 5"<<endl;
 
 	cin>>no ;
 	switch (no)
@@ -178,8 +177,12 @@ void user::display(){
 void user::show_my_posts(){
     
      for(int i=0;i<this->my_posts.size();i++)
-		 cout<<"index :"<<i<<endl<<this->my_posts[i].txt <<endl <<"likes : " << this->my_posts[i].no_likes << endl;
-	 cout<<"  if you want to like please enter 0  "<<endl <<"or press 1 if you want to go back "<<endl;
+		 cout<<"index :"<<i<<endl<<this->my_posts[i].txt <<endl <<"likes : " 
+			<< this->my_posts[i].no_likes << endl;
+
+
+	 cout<<"if you want to like please enter 0  "<<endl 
+		 <<"if you want to go back please enter 1 "<<endl;
 	int b;
 	 cin>> b;
 	 switch(b){
@@ -195,11 +198,31 @@ void user::show_my_posts(){
      }
 
 
+void user::like_post(post x)
+{
+
+	
+	int owner ;
+	string liker_name ;
+	owner=x.owner_ID;
+	
+	for (int i =0 ; i<users[owner].my_posts.size() ; i++)
+	{
+		cout<<users[owner].my_posts[i].txt <<endl <<x.txt <<endl ;
+
+		if(users[owner].my_posts[i].txt==x.txt)
+		{
+			users[owner].my_posts[i].no_likes++;
+			users[owner].my_posts[i].name_likes.push_back(this->name);
+		}
+	}
+
+
+}
+
 void user::show_posts()
 {
-	////////////
-	cout <<"ana gwa show posts " << endl;
-	////////////
+
 	vector <post> all_posts ;
 
 
@@ -219,16 +242,17 @@ void user::show_posts()
 	
 	}
 	
-	cout<<" press 0 if you want to like or press 1 if you want to go back "<<endl;
+	cout<<"if you want to like please enter 0 "<<endl
+		<< "press 1 if you want to go back "<<endl;
 	int b;
 	 cin>> b;
 	 switch(b){
 	 case 0 :
 		 int y ;
-		 cout<<"please enter index of the post "<<endl;
+		 cout<<"please enter index of the post : ";
 		 cin>>y;
 		 this->like_post(all_posts[y]) ;
-		 cout<<"rbna m3aky"<<endl;
+		 
 	 case 1: display();
 
 	 }
@@ -244,13 +268,10 @@ void user:: write_post(){
 	new_post.txt= my_new_post;
 	new_post.no_likes=0;
 	new_post.owner_ID=this->ID ;
-	this->my_posts.push_back(new_post) ;
+
+	users[this->ID].my_posts.push_back(new_post) ;
+
 	this->display();
-
-
-
-
-
 }
 
 void user::sign_out(){
@@ -263,8 +284,7 @@ void user::show_my_friends_list()
 	for(auto i=friend_list[this->ID].begin(); i != friend_list[this->ID].end(); ++i)
 	{
 		 int friend_ID =*i ;
-		 cout<< users[friend_ID].name<<endl ;
-	
+		 cout<< users[friend_ID].name<<endl ;	
 	
 	}
 	this->display();
@@ -272,27 +292,6 @@ void user::show_my_friends_list()
 
 }
 
-void user::like_post(post x)
-{
-
-	
-	int owner ;
-	string liker_name ;
-	owner=x.owner_ID;
-	cout <<"hello" ;
-	for (int i =0 ; i<users[owner].my_posts.size() ; i++)
-	{
-		cout<<users[owner].my_posts[i].txt <<endl <<x.txt <<endl ;
-		if(users[owner].my_posts[i].txt==x.txt)
-		{
-			cout << "i'm here " ;
-			users[owner].my_posts[i].no_likes++;
-			users[owner].my_posts[i].name_likes.push_back(this->name);
-		}
-	}
-
-
-}
 
 int main ()
 {
