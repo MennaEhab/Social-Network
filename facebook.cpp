@@ -177,12 +177,18 @@ void user::display(){
 
 void user::show_my_posts(){
     
-     for(int i=0;i<this->post.size();i++)cout<<"index :"<<i<<endl<<this->post[i]<<endl;
-	 cout<<" press 0 if you want to like or press 1 if you want to go back "<<endl;
+     for(int i=0;i<this->my_posts.size();i++)
+		 cout<<"index :"<<i<<endl<<this->my_posts[i].txt <<endl <<"likes : " << this->my_posts[i].no_likes << endl;
+	 cout<<"  if you want to like please enter 0  "<<endl <<"or press 1 if you want to go back "<<endl;
 	int b;
 	 cin>> b;
 	 switch(b){
-	 case 0 : cout<<"rbna m3aky"<<endl;
+	 case 0 :
+		 cout <<"please inter the index of the post you want to like "<<endl;
+		 int y ;
+		 cin>>y;
+		 this ->like_post(this->my_posts[y]) ;
+		 
 	 case 1: display();
 	 
 	 }
@@ -194,22 +200,22 @@ void user::show_posts()
 	////////////
 	cout <<"ana gwa show posts " << endl;
 	////////////
-	vector <string> all_posts ;
+	vector <post> all_posts ;
 
 
 	for (auto i=friend_list[this->ID].begin(); i != friend_list[this->ID].end(); ++i)
 	{
 	int ID_friend=*i ;
-	cout<<users[ID_friend].post[0];
+	cout<<users[ID_friend].my_posts[0].txt;
 
-	all_posts.reserve(all_posts.size()+users[ID_friend].post.size());
-	all_posts.insert(all_posts.end(),users[ID_friend].post.begin() ,users[ID_friend].post.end());
+	all_posts.reserve(all_posts.size()+users[ID_friend].my_posts.size());
+	all_posts.insert(all_posts.end(),users[ID_friend].my_posts.begin() ,users[ID_friend].my_posts.end());
 
 	}
 
 	for(int i =0 ; i<all_posts.size() ; i++)
 	{
-		cout<<"index no."<<i <<":" <<endl <<all_posts[i] <<endl  ;
+		cout<<"index no."<<i <<":" <<endl <<all_posts[i].txt <<endl  <<"likes : "<<all_posts[i].no_likes<<endl ;
 	
 	}
 	
@@ -217,7 +223,12 @@ void user::show_posts()
 	int b;
 	 cin>> b;
 	 switch(b){
-	 case 0 : cout<<"rbna m3aky"<<endl;
+	 case 0 :
+		 int y ;
+		 cout<<"please enter index of the post "<<endl;
+		 cin>>y;
+		 this->like_post(all_posts[y]) ;
+		 cout<<"rbna m3aky"<<endl;
 	 case 1: display();
 
 	 }
@@ -225,12 +236,15 @@ void user::show_posts()
 
 void user:: write_post(){
 
-	string my_post ;
+	string my_new_post ;
 	cout<<"enter your post "<<endl ;
 	cin.ignore();
-	getline(cin,my_post);
-	this->post.push_back(my_post) ;
-	
+	getline(cin,my_new_post);
+	post new_post ;
+	new_post.txt= my_new_post;
+	new_post.no_likes=0;
+	new_post.owner_ID=this->ID ;
+	this->my_posts.push_back(new_post) ;
 	this->display();
 
 
@@ -254,6 +268,28 @@ void user::show_my_friends_list()
 	
 	}
 	this->display();
+
+
+}
+
+void user::like_post(post x)
+{
+
+	
+	int owner ;
+	string liker_name ;
+	owner=x.owner_ID;
+	cout <<"hello" ;
+	for (int i =0 ; i<users[owner].my_posts.size() ; i++)
+	{
+		cout<<users[owner].my_posts[i].txt <<endl <<x.txt <<endl ;
+		if(users[owner].my_posts[i].txt==x.txt)
+		{
+			cout << "i'm here " ;
+			users[owner].my_posts[i].no_likes++;
+			users[owner].my_posts[i].name_likes.push_back(this->name);
+		}
+	}
 
 
 }
