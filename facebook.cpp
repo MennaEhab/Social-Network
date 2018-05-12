@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
 #include <list>
-
 #include<vector>
-
 #include "facebook.h"
 using namespace std ;
 
@@ -135,15 +133,19 @@ sign_in ();
 
 }
 
-void user::display(){
+void user::display()
+{
 	int no ;
+	string email ;
+	label :
+
 	cout <<"if you what to show  your posts press 0"<<endl
 		<<"if you want to show friends posts press 1"<<endl
 		<<"if want to write posts press 2" <<endl
 		<<"if want to sign out press 3" <<endl
 		<<"if you want to add friend press 4"<<endl
 		<<"if you want to show your friends list please press 5"<<endl;
-
+	
 	cin>>no ;
 	switch (no)
 	{
@@ -163,24 +165,27 @@ void user::display(){
 		this->show_my_friends_list();
 		break;
 	case 4 :
-		string email ;
+		
 		cout<<"please the enter the friend email"<<endl;
 		cin>>email ;
 		this->add_friend(email) ;
 		break;
-	
-							
+	default :
+		cout<<"please enter the correct no." << endl ;
+		goto label ;
+		
+					
 	}
 }
 
-
+//this->my_posts[i].txt
 void user::show_my_posts(){
     
      for(int i=0;i<this->my_posts.size();i++)
-		 cout<<"index :"<<i<<endl<<this->my_posts[i].txt <<endl <<"likes : " 
-			<< this->my_posts[i].no_likes << endl;
+		 cout<<"index :"<<i<<endl<<users[this->ID].my_posts[i].txt <<endl <<"likes : " 
+			<< users[this->ID].my_posts[i].no_likes << endl;
 
-
+	 label :
 	 cout<<"if you want to like please enter 0  "<<endl 
 		 <<"if you want to go back please enter 1 "<<endl;
 	int b;
@@ -191,12 +196,16 @@ void user::show_my_posts(){
 		 int y ;
 		 cin>>y;
 		 this ->like_post(this->my_posts[y]) ;
+		 break ;
 		 
-	 case 1: display();
-	 
-	 }
+	 case 1: 
+		 display();
+		 break ;
+	 default :
+		 cout<<"enter the correct no. " <<endl ;
+		 goto label ;
      }
-
+}
 
 void user::like_post(post x)
 {
@@ -208,7 +217,6 @@ void user::like_post(post x)
 	
 	for (int i =0 ; i<users[owner].my_posts.size() ; i++)
 	{
-		cout<<users[owner].my_posts[i].txt <<endl <<x.txt <<endl ;
 
 		if(users[owner].my_posts[i].txt==x.txt)
 		{
@@ -222,18 +230,13 @@ void user::like_post(post x)
 
 void user::show_posts()
 {
-
 	vector <post> all_posts ;
-
-
 	for (auto i=friend_list[this->ID].begin(); i != friend_list[this->ID].end(); ++i)
 	{
 	int ID_friend=*i ;
-	cout<<users[ID_friend].my_posts[0].txt;
 
 	all_posts.reserve(all_posts.size()+users[ID_friend].my_posts.size());
 	all_posts.insert(all_posts.end(),users[ID_friend].my_posts.begin() ,users[ID_friend].my_posts.end());
-
 	}
 
 	for(int i =0 ; i<all_posts.size() ; i++)
@@ -242,6 +245,8 @@ void user::show_posts()
 	
 	}
 	
+	label :
+
 	cout<<"if you want to like please enter 0 "<<endl
 		<< "press 1 if you want to go back "<<endl;
 	int b;
@@ -254,7 +259,10 @@ void user::show_posts()
 		 this->like_post(all_posts[y]) ;
 		 
 	 case 1: display();
-
+	 default : 
+		 cout << "please enter the correct no. " << endl ;
+		 goto label ;
+	
 	 }
 }
 
@@ -270,6 +278,8 @@ void user:: write_post(){
 	new_post.owner_ID=this->ID ;
 
 	users[this->ID].my_posts.push_back(new_post) ;
+
+	this->my_posts.push_back(new_post) ;
 
 	this->display();
 }
