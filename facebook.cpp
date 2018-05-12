@@ -49,10 +49,27 @@ void creat_account()
 	cin.ignore();
 	getline(cin ,name);
 	cout<<endl<<"please enter email : \t" ;
-	cin >>email ;
-	///////////////////
-	//check
-	//////////////////
+
+
+
+
+	while(1)
+	{ 
+		cin >> email;
+		bool flag = true;
+		for (int c = 0; c < users.size(); c++)
+		{
+			 if (email == users[c].email)
+			 {
+				 cout << "email is existing...please enter another email" << endl;
+				 flag = false;
+				 break;
+			 }
+		}
+		if (flag == true)break;
+	}
+	 
+
 	cout<<endl<<"please enter password : \t"; 
 	cin>>password ;
 
@@ -71,8 +88,34 @@ void sign_in ()
 	int i=0 ;
 	bool flag = false ;
 	cout<<"please enter your email : \t" ;
-	cin>>email;
+
+
+
 	///////email checking
+
+	while (1)
+	{
+		cin >> email;
+		bool flag =false;
+		for (int c = 0; c < users.size(); c++)
+		{
+			if (email == users[c].email)
+			{
+				  flag = true;
+				break;
+			}
+		}
+		if (flag == true)break;
+		cout << "please enter another email...if you want to sign up please enter 1" << endl<<
+			"if you want to repeat entering email plese enter 0"<<endl;
+		int no;
+		cin >> no;
+		switch (no) { case(1):home_page(); case(0):break; }
+		
+	}
+	
+
+
 	cout <<endl << "please enter password : \t" ;
 	cin>>password ;
 	for (i ; i <users.size() ; i++)
@@ -178,7 +221,7 @@ void user::display()
 	}
 }
 
-//this->my_posts[i].txt
+
 void user::show_my_posts(){
     
      for(int i=0;i<this->my_posts.size();i++)
@@ -312,6 +355,3 @@ int main ()
 	return 0;
 
 }
-
-
-
