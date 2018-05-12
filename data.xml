@@ -1,0 +1,65 @@
+<USERS_Data>
+    <User>
+        <ID>0</ID>
+        <name>marwa</name>
+        <email>mostafa</email>
+        <password>kaoud</password>
+        <posts>
+            <post>
+                <owner>0</owner>
+                <txt>mama is heree</txt>
+                <no_likes>0</no_likes>
+                <likers/>
+                <comments/>
+            </post>
+            <post>
+                <owner>0</owner>
+                <txt>marwaa i here</txt>
+                <no_likes>1</no_likes>
+                <likers>
+                    <liker>salma </liker>
+                </likers>
+                <comments/>
+            </post>
+        </posts>
+        <friendslist>
+            <friends>1</friends>
+        </friendslist>
+    </User>
+    <User>
+        <ID>1</ID>
+        <name>salma </name>
+        <email>magdy</email>
+        <password>ahmed</password>
+        <posts/>
+        <friendslist>
+            <friends>0</friends>
+        </friendslist>
+    </User>
+</USERS_Data>
+
+<USERS_Data>
+    <User>
+        <ID>0</ID>
+        <name>marwa</name>
+        <email>mostafa</email>
+        <password>kaoud</password>
+        <posts>
+            <post>
+                <owner>0</owner>
+                <txt>mama is heree</txt>
+                <no_likes>0</no_likes>
+                <likers/>
+                <comments/>
+            </post>
+            <post>
+                <owner>0</owner>
+                <txt>marwaa i here</txt>
+                <no_likes>0</no_likes>
+                <likers/>
+                <comments/>
+            </post>
+        </posts>
+        <friendslist/>
+    </User>
+</USERS_Data>
