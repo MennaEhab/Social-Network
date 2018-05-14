@@ -33,10 +33,11 @@ void user::add_friend(string email)
 		{
 			
 			friend_list[i].push_back(this->ID);  
-			friend_list[this->ID].push_back(i);  	
+			friend_list[this->ID].push_back(i); 
+			cout<<"now you are friend with"<< users[i].name<<endl ;
 		}
 	}
-
+	
 	this->display();
 }
 
@@ -45,10 +46,10 @@ void creat_account()
 	string name ;
 	string password ;
 	string email;
-	cout <<"please enter user name :";
+	cout <<"please enter user name : ";
 	cin.ignore();
 	getline(cin ,name);
-	cout<<endl<<"please enter email : \t" ;
+	cout<<endl<<"please enter email : " ;
 
 
 
@@ -70,13 +71,16 @@ void creat_account()
 	}
 	 
 
-	cout<<endl<<"please enter password : \t"; 
+	cout<<endl<<"please enter password : "; 
 	cin>>password ;
 
 	user m (global_ID , name, password , email);
 	global_ID++;
 	users.push_back(m);
 	
+	system("CLS");
+	cout <<"welcome "<<m.name<<endl<<endl;
+
 	m.display();
 
 }
@@ -87,7 +91,7 @@ void sign_in ()
 	string password ;
 	int i=0 ;
 	bool flag = false ;
-	cout<<"please enter your email : \t" ;
+	cout<<"please enter your email :  " ;
 
 
 
@@ -110,13 +114,18 @@ void sign_in ()
 			"if you want to repeat entering email plese enter 0"<<endl;
 		int no;
 		cin >> no;
-		switch (no) { case(1):home_page(); case(0):break; }
+		switch (no) { 
+		case(1):  
+			home_page(); 
+		case(0):
+			cout<<"please enter your email : " ;
+			break; }
 		
 	}
 	
 
 
-	cout <<endl << "please enter password : \t" ;
+	cout <<endl << "please enter password : " ;
 	cin>>password ;
 	for (i ; i <users.size() ; i++)
 	{
@@ -135,7 +144,7 @@ void sign_in ()
 			}
 			else 
 			{
-			cout <<endl << "please enter password : \t" ;
+			cout <<endl << "please enter password : " ;
 			cin>>password ;
 			}
 			}
@@ -160,16 +169,16 @@ void sign_in ()
 void home_page()
 {
 	int x ;
-cout<< "welcome to Our social media network"<<endl 
-	<< " if you want to creat new account please enter  ( 1) "<<endl 
-	<< "if you want to sign in please enter ( 0) " <<endl;
+cout<< "        Welcome to Our social media network"<<endl <<endl 
+	<< " if you want to creat new account please enter  ( 0 ) "<<endl 
+	<< " if you want to sign in please enter ( 1 ) " <<endl;
 
 cin>>x ;
-if (x == 1)
+if (x == 0)
 {
 	creat_account();
 }
-else if (x==0)
+else if (x==1)
 {
 sign_in ();
 }
@@ -182,34 +191,35 @@ void user::display()
 	string email ;
 	label :
 
-	cout <<"if you what to show  your posts press 0"<<endl
-		<<"if you want to show friends posts press 1"<<endl
-		<<"if want to write posts press 2" <<endl
-		<<"if want to sign out press 3" <<endl
-		<<"if you want to add friend press 4"<<endl
-		<<"if you want to show your friends list please press 5"<<endl;
-	
+	cout<<"if want to write posts please press ( 0 )" <<endl<<endl 
+		<<"if you what to show  your posts press ( 1 )"<<endl<<endl
+		<<"if you want to show your friend's posts press ( 2 )"<<endl
+		<<"if you want to add friend press ( 3 )"<<endl
+		<<"if you want to show your friends list please press ( 4 )"<<endl
+		<<"if want to sign out press ( 5 )" <<endl
+		;
+
+
 	cin>>no ;
 	switch (no)
 	{
-	case 0:
+	case 1:
 		this->show_my_posts();
 		break;
-	case 1 :
+	case 2 :
 		this->show_posts();
 		break;
-	case 2 :
+	case 0 :
 		this->write_post();
 		break;
-	case 3 :
+	case 5 :
 		this->sign_out();
 		break;
-	case 5 :
+	case 4 :
 		this->show_my_friends_list();
 		break;
-	case 4 :
-		
-		cout<<"please the enter the friend email"<<endl;
+	case 3 :
+		cout<<"please enter the friend email"<<endl;
 		cin>>email ;
 		this->add_friend(email) ;
 		break;
@@ -221,7 +231,6 @@ void user::display()
 	}
 }
 
-
 void user::show_my_posts(){
     
      for(int i=0;i<this->my_posts.size();i++)
@@ -230,24 +239,40 @@ void user::show_my_posts(){
 
 	 label :
 	 cout<<"if you want to like please enter 0  "<<endl 
-		 <<"if you want to go back please enter 1 "<<endl;
+		 <<"if you want to go back please enter 2 "<<endl
+		 <<"if you want to write a a comment please enter 1 "<<endl
+		 <<"if you want to show comment please enter 3 "<<endl
+		 <<"if you want to show likers please enter  "<<endl;
+	 int y ;
 	int b;
 	 cin>> b;
 	 switch(b){
 	 case 0 :
-		 cout <<"please inter the index of the post you want to like "<<endl;
-		 int y ;
+		 cout <<"please enter the index of the post you want to like "<<endl;
+		 
 		 cin>>y;
 		 this ->like_post(this->my_posts[y]) ;
 		 break ;
-		 
-	 case 1: 
+	 case 1  :
+		 // int y ;
+		 cout<<"please enter index of the post : ";
+		 cin>>y;
+		 this->comment_post(this->my_posts[y]);
+		 break ;
+	 case 3 :
+		 cout<<"please enter index of the post : ";
+		 cin>>y;
+		 this->show_comments(this->my_posts[y]);
+		 break;
+	 case 2: 
 		 display();
 		 break ;
 	 default :
 		 cout<<"enter the correct no. " <<endl ;
 		 goto label ;
      }
+
+	 goto label ;
 }
 
 void user::like_post(post x)
@@ -271,6 +296,43 @@ void user::like_post(post x)
 
 }
 
+void user::comment_post(post x)
+{
+	comment newcomment;
+	int owner=x.owner_ID;
+	
+	for (int i = 0; i<users[owner].my_posts.size(); i++)
+	{
+		
+
+		if (users[owner].my_posts[i].txt == x.txt)
+		{
+			cout << "type your comment..."<<endl ;
+
+			cin.ignore();
+	        getline(cin,newcomment.text);
+			
+			newcomment.owner =owner ;
+			users[owner].my_posts[i].comments.push_back(newcomment);
+			
+			break;
+		}
+	}
+
+
+	
+	
+	
+}
+
+void user::show_comments(post x)
+{
+	for(int i =0 ; i<x.comments.size(); i++)
+
+		cout << x.comments[i].owner <<":"<<x.comments[i].text<<endl ;
+
+}
+
 void user::show_posts()
 {
 	vector <post> all_posts ;
@@ -285,28 +347,48 @@ void user::show_posts()
 	for(int i =0 ; i<all_posts.size() ; i++)
 	{
 		cout<<"index no."<<i <<":" <<endl <<all_posts[i].txt <<endl  <<"likes : "<<all_posts[i].no_likes<<endl ;
-	
 	}
-	
 	label :
-
 	cout<<"if you want to like please enter 0 "<<endl
-		<< "press 1 if you want to go back "<<endl;
+		<<"if you want to write a comment please enter 1 "<<endl
+		<<"if you want to show comment please enter 2 "<<endl
+		<<"if you want to go back please enter 3 "<<endl;
+	int y;
 	int b;
 	 cin>> b;
 	 switch(b){
 	 case 0 :
-		 int y ;
 		 cout<<"please enter index of the post : ";
 		 cin>>y;
 		 this->like_post(all_posts[y]) ;
-		 
-	 case 1: display();
+		 break ;
+	 case 1  :
+		 cout<<"please enter index of the post : ";
+		 cin>>y;
+		 this->comment_post(all_posts[y]);
+		 break;
+	 case 2 :
+		 cout<<"please enter index of the post : ";
+		 cin>>y;
+		 this->show_comments(all_posts[y]);
+		 break;
+	 case 3: 
+		 display();
+		 break ;
 	 default : 
 		 cout << "please enter the correct no. " << endl ;
 		 goto label ;
-	
 	 }
+
+	 goto label ;
+	
+}
+
+void user::show_likers(post x)
+{
+	for(int i =0 ; i<x.comments.size(); i++)
+
+		cout << x.name_likes[i]<<endl;
 }
 
 void user:: write_post(){
@@ -324,13 +406,17 @@ void user:: write_post(){
 
 	this->my_posts.push_back(new_post) ;
 
+	
+
+
 	this->display();
 }
 
 void user::sign_out(){
+
+	system("CLS");
 	home_page();
 }
-
 
 void user::show_my_friends_list()
 {
@@ -344,7 +430,6 @@ void user::show_my_friends_list()
 
 
 }
-
 
 int main ()
 {

@@ -5,6 +5,15 @@ using namespace std;
 
 #include<vector>
 
+struct comment 
+{
+	string text ;
+	int owner ;
+
+
+};
+
+
 struct post 
 {
 
@@ -12,6 +21,7 @@ struct post
 	int no_likes ;
     vector <string >name_likes ;
     int owner_ID ;
+	vector<comment> comments ;
 };
 
 
@@ -42,6 +52,9 @@ public :
 	void sign_out();
 	void show_my_friends_list();
 	void like_post(post x) ;
+	void comment_post(post x);
+	void show_comments(post x);
+	void show_likers(post x);
 };
 
 
