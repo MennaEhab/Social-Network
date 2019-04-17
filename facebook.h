@@ -2,26 +2,19 @@
 #include <string>
 #include <list>
 using namespace std;
-
 #include<vector>
-
-struct comment 
+struct comment
 {
-	string text ;
-	int owner ;
-
-
+	string text;
+	int owner;
 };
-
-
 struct post 
 {
-
+	int owner_ID;
 	string txt ;
 	int no_likes ;
     vector <string >name_likes ;
-    int owner_ID ;
-	vector<comment> comments ;
+   	vector <comment> comments;
 };
 
 
@@ -29,18 +22,19 @@ class user {
 
 private:
 
-    
+	int ID;
     string name ;
     string password ;
     string email ;
-	int ID ;
-    vector <post> my_posts ;
 	
+    vector <post> my_posts ;
+	friend void	save_and_exit();
+	friend void  load_data();
 
 
 public :
 	user (int ID  ,string name , string password , string email) ;
-	
+	user();
 	void add_friend (string email);
 	void display() ;
 	void show_posts() ;
@@ -53,8 +47,6 @@ public :
 	void show_my_friends_list();
 	void like_post(post x) ;
 	void comment_post(post x);
-	void show_comments(post x);
-	void show_likers(post x);
 };
 
 
@@ -63,8 +55,8 @@ void creat_account ();
 void home_page();
 void sign_in ();
 
-
-
+void save_and_exit();
+void load_data();
 
 
 
