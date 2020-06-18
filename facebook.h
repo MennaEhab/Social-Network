@@ -1,8 +1,11 @@
 #include <iostream>
 #include <string>
 #include <list>
-using namespace std;
 #include<vector>
+
+using namespace std;
+
+
 struct comment
 {
 	string text;
@@ -13,7 +16,7 @@ struct post
 	int owner_ID;
 	string txt ;
 	int no_likes ;
-    vector <string >name_likes ;
+	vector <string >name_likes ;
    	vector <comment> comments;
 };
 
@@ -23,12 +26,11 @@ class user {
 private:
 
 	int ID;
-    string name ;
-    string password ;
-    string email ;
-	
-    vector <post> my_posts ;
-	friend void	save_and_exit();
+	string name ;
+	string password ;
+	string email ;
+	vector <post> my_posts ;
+	friend void save_and_exit();
 	friend void  load_data();
 
 
